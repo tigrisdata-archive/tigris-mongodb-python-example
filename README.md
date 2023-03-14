@@ -28,8 +28,8 @@ pip install -r requirements.txt
 Add an environment variabled named `MONGODB_URL` with the connection string to Tigris. Be sure to replace `{TIGRIS_CLIENT_ID}`, `{TIGRIS_CLIENT_SECRET}`, and `{TIGRIS_PROJECT_NAME}` with your values.
 
 ```sh
-export MONGODB_URL="mongodb://{TIGRIS_CLIENT_ID}:{TIGRIS_CLIENT_SECRET}@m1k.preview.tigrisdata.cloud:27018/?authMechanism=PLAIN&tls=true
-export TIGRIS_PROJECT_NAME={TIGRIS_PROJECT_NAME}
+export MONGODB_URL="mongodb://{TIGRIS_CLIENT_ID}:{TIGRIS_CLIENT_SECRET}@m1k.preview.tigrisdata.cloud:27018/?authMechanism=PLAIN&tls=true"
+export TIGRIS_PROJECT_NAME="{TIGRIS_PROJECT_NAME}"
 ```
 
 ## Run the app
