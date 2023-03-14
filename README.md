@@ -1,26 +1,73 @@
-# MongoDB with FastAPI
+# Tigris MongoDB compatibility and Python FastAPI example
 
-This is a small sample project demonstrating how to build an API with [MongoDB](https://developer.mongodb.com/) and [FastAPI](https://fastapi.tiangolo.com/).
-It was written to accompany a [blog post](https://developer.mongodb.com/quickstart/python-quickstart-fastapi/) - you should go read it!
+## Introduction
 
-## TL;DR
+Welcome to this Tigris MongoDB compatibility and Python FastAPI example app. This repo aims to give you a working example of how you can use the power of Tigris MongoDB compatibility with Python to create modern web applications.
 
-If you really don't want to read the [blog post](https://developer.mongodb.com/quickstart/python-quickstart-fastapi/) and want to get up and running,
-activate your Python virtualenv, and then run the following from your terminal (edit the `MONGODB_URL` first!):
+## Prerequisites
 
-```bash
-# Install the requirements:
+- [Python 3](https://www.python.org/downloads/)
+- A [Tigris Cloud account](https://console.preview.tigrisdata.cloud/signup) or you can [self-host Tigris](https://www.tigrisdata.com/docs/concepts/platform/self-host/)
+
+## Preparing Tigris
+
+1. Create a project in Tigris.
+1. Create an application key, and copy the Project Name, Client ID, and Client Secret values.
+
+
+## Setting up the environment
+
+Activate your Python virtualenv and install dependencies.
+
+```sh
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
+```
 
-# Configure the location of your MongoDB database:
-export MONGODB_URL="mongodb+srv://Pg8bXtV3H0zm2TH4a4RyEjE7blHMbWXq:GAgSeUKTIWtSqhzMFK_nzLPOpffo6uUhZuAcLlNexyjknoVnOmSFaueoONEmtEYI@@m1k.preview.tigrisdata.cloud:27018?authMechanism=PLAIN&tls=true/pytest"
+Add an environment variabled named `MONGODB_URL` with the connection string to Tigris. Be sure to replace `{TIGRIS_CLIENT_ID}`, `{TIGRIS_CLIENT_SECRET}`, and `{TIGRIS_PROJECT_NAME}` with your values.
 
-# Start the service:
+```sh
+export MONGODB_URL="mongodb://{TIGRIS_CLIENT_ID}:{TIGRIS_CLIENT_SECRET}@m1k.preview.tigrisdata.cloud:27018/?authMechanism=PLAIN&tls=true
+export TIGRIS_PROJECT_NAME={TIGRIS_PROJECT_NAME}
+```
+
+## Run the app
+
+Start the app as follows:
+
+```shell
 uvicorn app:app --reload
 ```
 
-(Check out [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) if you need a MongoDB database.)
+## API endpoints
 
-Now you can load http://localhost:8000/docs in your browser ... but there won't be much to see until you've inserted some data.
+Create a new Game:
 
-If you have any questions or suggestions, check out the [MongoDB Community Forums](https://developer.mongodb.com/community/forums/)!
+```shell
+curl --location --request POST 'http://localhost:8000/games' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "name": "Fable Anniversary",
+   "price": 4.99,
+   "category": "Video Game"
+}'
+```
+
+List Games:
+
+```shell
+curl --location --request GET 'http://localhost:8000/games'
+```
+
+Get a single Game:
+
+```shell
+curl --location --request GET 'http://localhost:8000/games/{_id}'
+```
+
+Delete a Game:
+
+```shell
+curl --location --request DELETE 'http://localhost:8000/games/{_id}'
+```
